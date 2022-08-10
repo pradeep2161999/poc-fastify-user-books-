@@ -1,0 +1,19 @@
+{
+  "development": {
+    "use_env_variable":"DATABASE_URL"
+  },
+  "test": {
+    "username": "library",
+    "password": "password",
+    "database": "library_apps",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "library",
+    "password": "password",
+    "database": "library_apps",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
