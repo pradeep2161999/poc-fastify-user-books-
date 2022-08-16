@@ -1,7 +1,11 @@
 "use strict";
 import { DataTypes, Sequelize } from "sequelize";
-import db from ".";
+import User from "./user";
 
+import db from ".";
+const modelOPtions = {
+  tableName: "Books",
+};
 const attributes = {
   book_name: {
     type: DataTypes.STRING,
@@ -26,7 +30,7 @@ const attributes = {
 };
 
 function bookModelFactory(sequelize: Sequelize) {
-  return sequelize.define("Book", attributes);
+  return sequelize.define("Book", attributes, modelOPtions);
 }
 
 const Book = bookModelFactory(db);

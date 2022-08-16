@@ -2,8 +2,9 @@
 import { DataTypes, Sequelize } from "sequelize";
 import Book from "./book";
 import db from ".";
+import { UserAttributes } from "../types";
 
-const attributes = {
+ const attributes = {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -16,6 +17,13 @@ const attributes = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  password: {
+   
+    type: DataTypes.STRING,
+  },
+  mark_as_sigin: {
+    type: DataTypes.STRING,
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
@@ -24,6 +32,7 @@ const attributes = {
     allowNull: false,
     type: DataTypes.DATE,
   },
+ 
 };
 
 function modelUserFactory(sequelize: Sequelize) {
