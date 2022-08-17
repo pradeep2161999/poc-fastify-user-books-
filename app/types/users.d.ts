@@ -6,6 +6,7 @@ export interface UserAttributes{
     password: string,
    createdAt: number,
     updatedAt: number,
+    mark_as_signin: number
 }
 export interface UserInstance extends Model<UserAttributes>, UserAttributes {}
 export type UserStatic = typeof Model & {

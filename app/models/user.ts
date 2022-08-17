@@ -18,7 +18,7 @@ import { UserAttributes } from "../types";
     allowNull: false,
   },
   password: {
-   
+    allowNull:false,
     type: DataTypes.STRING,
   },
   mark_as_signin: {

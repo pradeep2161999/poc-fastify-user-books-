@@ -4,71 +4,43 @@ import { userInfo } from "os";
 import { updateNamespaceExportDeclaration } from "typescript";
 import db from "../models";
 import Book from "../models/book";
-import Users from "../models/user";
 import User from "../models/user";
-
-import { userLoginRouterOpts } from "../routes/users/users-login-router.opts";
-import { userUpdateRouterOpts } from "../routes/users/users-update.router.opts";
-import userRoutes from "../routes/users/users.routes";
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-function generateAccessToken(email:string) {
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+function generateAccessToken(email: string) {
   // console.log("emaillllllllllll", email)
   // console.log("process.env.TOKEN_SECRET", process.env.TOKEN_SECRET)
   return jwt.sign({ email }, `${process.env.TOKEN_SECRET}`);
 }
-async function signin(attrs:any) {   
-  const user= await User.findOne({ where: { email: attrs.email } });
+async function signin(attrs: any) {
+  const userdetail = await User.findOne({ where: { email: attrs.email } });
 
   //console.log("attrs--------------------------",attrs);
-  console.log("user---------------------------+++=+++++++++=",user);
-  const pass = "password";
-  //console.log("pass-----------------------------",pass);
+  // console.log("user==================================================================>>>>>>>>>>>>", userdetail);
+  const password = "password";
+  //console.log("pass===============================================================>>>>>>>>>>>>>>>>>>>>>>>>>",pass);
 
-  const hash = bcrypt.hashSync(attrs.password, 10);
+  const hashingpassword = bcrypt.hashSync(attrs.password, 10);
   // console.log("hash--------------------------",hash);
-  const checkPassword = bcrypt.compareSync(pass, hash); // true
+  const verifiedpassword = bcrypt.compareSync(password, hashingpassword); // true
 
-  // console.log("checkPassword---------------------------", checkPassword);
+  // console.log("verifiedpassword---------------------------", verifiedpassword);
 
-  if (!checkPassword) {
+  if (!verifiedpassword) {
     throw new Error("Email or password is invalid");
   }
   const token = generateAccessToken(attrs.email);
-    
 
-  await user?.update
-  ({
-    token: token,
-   });
+  if (userdetail) {
+    await userdetail.update({
+      token: token,
+    });
+  }
 
   return token;
 }
 
-
-
-
-
-
-
-// async function signin(attrs:any) {
-//   const pass="password";
-//   console.log(pass);
-  
-//   const hash = bcrypt.hashSync(attrs.password, 10);
-//   const checkPassword = bcrypt.compareSync(pass, hash); // true
-
-// //   const loginUser = await User.findOne({
-// //     where: { Email: attrs.Email, password: attrs.password },
-// //   });
-// //  console.log("loginUser---------------------------", checkPassword);
-
-//   if (!checkPassword) {
-//     throw new Error("Email or password is invalid");
-//   }
-//  }
-
- function add(req: any) {
+function add(req: any) {
   return User.create({
     name: req.name,
     email: req.email,
@@ -76,12 +48,6 @@ async function signin(attrs:any) {
     password: req.password,
   });
 }
-
-
-
-
-
-
 
 // function add(req: any,res:any){
 //   const { id } = req.params
@@ -133,4 +99,4 @@ function removeUser(attrs: any, params: any) {
   });
 }
 
-export { add, listUser, updateUser, removeUser,signin };
+export { add, listUser, updateUser, removeUser, signin };

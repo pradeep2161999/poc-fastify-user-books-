@@ -21,7 +21,7 @@ const attrs = req.body as UserAttributes
     //console.log("----------------------------",signin)  
     reply.header('Authorization', `Bearer ${token}`);
 
-    reply.status(200).send({msg: [`Bearer ${token}`]});
+    reply.status(200).send({msg: ["Login Successfully!!!!!"]});
   })
   .catch((err:Error) => {
     console.log("ninifriiri======>",err);
