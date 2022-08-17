@@ -1,12 +1,11 @@
 import { BuildOptions,Model } from "sequelize";
 export interface UserAttributes{
-    // name: string,
+    name: string,
     email: string,
-    // role: string,   
-    // createdAt: number,
-    // updatedAt: number,
+    role: string, 
     password: string,
-    //  mark_as_signin: number,
+   createdAt: number,
+    updatedAt: number,
 }
 export interface UserInstance extends Model<UserAttributes>, UserAttributes {}
 export type UserStatic = typeof Model & {

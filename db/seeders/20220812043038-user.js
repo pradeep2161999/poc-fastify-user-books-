@@ -10,7 +10,7 @@ module.exports = {
         password: bcrypt.hashSync("pradeep", 10),
         mark_as_signin: new Date(),
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
        }])
   },
 

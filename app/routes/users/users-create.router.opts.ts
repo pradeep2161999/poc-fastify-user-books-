@@ -2,7 +2,7 @@ export const userCreateRouterOpts = {
     schema: {
       body: {
         type: "object",
-        required: ['name'],
+        required: ['name','email','role'],
         properties: {
           name: { type: "string" },
           email: { type: "string" },

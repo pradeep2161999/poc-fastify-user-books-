@@ -21,7 +21,11 @@ import { UserAttributes } from "../types";
    
     type: DataTypes.STRING,
   },
-  mark_as_sigin: {
+  mark_as_signin: {
+    type: DataTypes.STRING,
+  },
+  token: {
+    allowNull: false,
     type: DataTypes.STRING,
   },
   createdAt: {
