@@ -1,5 +1,4 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-// import { add, listBook, updateBook, removeUser } from "../services/book.service";
 import { BookAttributes } from "../types";
 import { UserParams } from "../types/user-controllers"
 import { BookParams } from "../types/book-controllers";

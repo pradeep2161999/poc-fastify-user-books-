@@ -7,6 +7,7 @@ export const userCreateRouterOpts = {
           name: { type: "string" },
           email: { type: "string" },
           role: { type: "string" },
+          
         },
       },
       response: {

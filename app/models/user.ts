@@ -25,7 +25,7 @@ import { UserAttributes } from "../types";
     type: DataTypes.STRING,
   },
   token: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
   },
   createdAt: {

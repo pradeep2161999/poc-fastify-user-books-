@@ -1,105 +1,67 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { updateLanguageServiceSourceFile } from "typescript";
-import User from "../models/user";
-import { add, listUser, updateUser ,removeUser,signin } from "../services/user.service";
+import {
+  add,
+  listuser,
+  updateuser,
+  remove,
+  signin,
+} from "../services/user.service";
 import { UserAttributes } from "../types";
+const dotenv = require("dotenv");
 import { BookAttributes } from "../types";
-import { UserParams } from "../types/user-controllers"
-import { BookParams } from "../types/book-controllers";
-import { isJsxAttributes } from "typescript";
-import Users from "../models/user";
-// import { user } from "pg/lib/defaults";
-
-const bcrypt = require('bcrypt')
-const dotenv = require('dotenv')
-const service = require('../services/user.service')
-function login(req: FastifyRequest, reply: FastifyReply){
-const attrs = req.body as UserAttributes
-  console.log("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[",attrs);
+// import { remove } from "./book.controller";
+function login(req: FastifyRequest, reply: FastifyReply) {
+  const attrs = req.body as UserAttributes;
+  console.log("==================================>>>>>>>>>>>>>>", attrs);
   return signin(attrs)
-  .then((token) => {
-    //console.log("----------------------------",signin)  
-    reply.header('Authorization', `Bearer ${token}`);
+    .then((token) => {
+      //console.log("----------------------------",signin)
+      reply.header("Authorization", `Bearer ${token}`);
 
-    reply.status(200).send({msg: ["Login Successfully!!!!!"]});
-  })
-  .catch((err:Error) => {
-    console.log("ninifriiri======>",err);
-    reply.status(400).send(err);
-  });
-
-}
-
-
-// function login(req: FastifyRequest, reply: FastifyReply) {
-//   const attrs = req.body as UserAttributes
-//   console.log("attrs==================>",attrs);
-//   // const pass=attrs.password;
-//   // console.log("pass--------------------",pass);
-  
-//   return signin(attrs)
-//     .then(() => {
-//       reply.status(200).send({ msg: ["login sucessfully"] });
-//     })
-//     .catch((err: Error) => {
-//       console.log("lllllllllllllllllllllllllllllllllllllllllll",err);
-//       reply.status(400).send(err);
-//     });
-// }
-
-
-
-
-function create(req: FastifyRequest, reply: FastifyReply) {
-  const attrs = req.body as UserAttributes
-  const { id } = req.params as { id: number };
-
-  // console.log("llllllllllllllllllllllllll",attrs);
-  return add(attrs)
-    .then((user) => {
-      reply.status(200).send({msg:[" User created Successfully!!!"]});
+      reply.status(200).send({ msg: ["Login Successfully!!!!!"] });
     })
-    .catch((err) => {
+    .catch((err: Error) => {
+      console.log("ninifriiri======>", err);
       reply.status(400).send(err);
     });
-  }
-
-function list(req: FastifyRequest, reply: FastifyReply) {
-  return listUser()
+}
+function create(req: FastifyRequest, reply: FastifyReply) {
+  const attrs = req.body as UserAttributes;
+  const { id } = req.params as { id: number };
+  return add(attrs)
     .then((user) => {
-        // console.log("-----------",user);
       reply.status(200).send(user);
     })
     .catch((err: Error) => {
-        // console.log("========",err)
       reply.status(400).send(err);
     });
-
 }
-
-function update(req: FastifyRequest,reply: FastifyReply){
-  const attrs = req.body as UserAttributes
-  const params = req.params as UserParams
-    return updateUser(attrs,params)
+function list(req: FastifyRequest, reply: FastifyReply) {
+  return listuser()
     .then((user) => {
-        console.log("user=-------->",user);
-        reply.status(200).send({msg: ["User Updated Succeessfully...."]});
-    }).catch((err) => {
-        reply.status(400).send(err);
-        
+      reply.status(200).send(user);
+    })
+    .catch((err: Error) => {
+      reply.status(400).send(err);
     });
-  }
-function remove(req: FastifyRequest,reply: FastifyReply ){
-  const attrs = req.body as UserAttributes
-  const params = req.params as UserParams
-
-    return removeUser(attrs,params)
+}
+function update(req: FastifyRequest, reply: FastifyReply) {
+  return updateuser(req.body, req.params)
     .then(() => {
-        reply.status(200).send({msg:["User deleted sucessfully!!!!"]});
-    }).catch((err: Error) => {
-        reply.status(400).send(err);
+      reply.status(200).send({ msg: [" update Successfully!!!"]});
+    })
+    .catch((err: Error) => {
+      reply.status(400).send(err);
     });
-  }
-
-
-export {create, list, update, remove,login};
+}
+function erase(req: FastifyRequest, reply: FastifyReply) {
+  const { id } = req.params as { id: number };
+  return remove(req.body, id)
+    .then(() => {
+      reply.send(200).send({ msg: [" user deleted successfully"]});
+    })
+    .catch((err: Error) => {
+      reply.status(400).send(err);
+    });
+}
+export { login, create, list, update, erase };

@@ -9,7 +9,6 @@ export const userLoginRouterOpts = {
           role: { type: "string" },
           password: { type: "string"},
           token: { type: "string"},
-          //  mark_as_signin: { type: "string"}
         },
       },
       response: {
@@ -21,4 +20,7 @@ export const userLoginRouterOpts = {
         },
       },  
     },
-  };
+   };
+module.exports = {
+  userLoginRouterOpts
+}
