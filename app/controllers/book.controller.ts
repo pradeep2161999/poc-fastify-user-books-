@@ -48,21 +48,5 @@ console.log("-------->>>>>>",book);
     const user = await removeBook(bookId);
     reply.status(200).send({msg:["book deleted successfully"]})
   }
-  
 
-//   function remove(req: FastifyRequest,reply: FastifyReply){
-
-//     const attrs = req.body as BookAttributes;
-//     const { userId } = req.params as { userId: number };
-//     const {bookId} = req.params as { bookId: number};
-//     return removeBook(attrs)
-//     .then(() => {
-//         reply.status(200).send({msg:["book deleted sucessfully"]});
-//     }).catch((err: Error) => {
-//       console.log("=====================================",err);
-//         reply.status(400).send(err);
-//     });
-// }
-
-// export { create, list, update,remove };
 export { create, list, update, remove };
