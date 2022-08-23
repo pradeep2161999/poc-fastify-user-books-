@@ -2,7 +2,7 @@ export const bookCreateRouterOpts = {
     schema: {
       body: {
         type: "object",
-        required: ['book_name'],
+        required: ['book_name','book_author','description'],
         properties: {
           book_name: { type: "string" },
           book_author: { type: "string" },

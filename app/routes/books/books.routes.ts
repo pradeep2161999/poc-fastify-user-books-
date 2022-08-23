@@ -35,7 +35,7 @@ function bookRoutes(
   opts: { prefix: string },
   next: (err?: Error) => void
 ) {
-  // userAuthenticate(fastify);
+  userAuthenticate(fastify);
 
   fastify.post("/book/:userId", bookCreateRouterOpts, create);
   fastify.get("/books", bookListRouterOpts, list);

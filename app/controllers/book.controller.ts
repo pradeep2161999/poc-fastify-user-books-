@@ -5,6 +5,8 @@ import { BookParams } from "../types/book-controllers";
 import { add ,list1, updateBook , removeBook } from "../services/book.service";
 function create(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as BookAttributes;
+  console.log("//////////////////////////////////////////////////",attrs);
+  
   const { userId } = req.params as { userId: number };
   return add(attrs, userId)
     .then((book) => {
