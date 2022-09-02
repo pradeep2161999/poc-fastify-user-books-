@@ -8,7 +8,12 @@ import {
 } from "../services/user.service";
 import { UserAttributes } from "../types";
 const dotenv = require("dotenv");
+import { SignatureKind } from "typescript"
 import { BookAttributes } from "../types";
+import { add as UserCreate} from "../services/user.service";
+import { UserPolicy } from '../policies';
+import { CreateUsersParams, UpdateUsersParams } from "../types/user-controllers";
+
 // import { remove } from "./book.controller";
 function login(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as UserAttributes;
@@ -25,6 +30,8 @@ function login(req: FastifyRequest, reply: FastifyReply) {
       reply.status(400).send(err);
     });
 }
+// type CreateUserBody = { user: CreateUsersParams  };
+// type UpdateUserBody = { user: UpdateUsersParams };
 function create(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as UserAttributes;
   const { id } = req.params as { id: number };

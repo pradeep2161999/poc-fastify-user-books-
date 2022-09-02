@@ -1,13 +1,15 @@
 import db from "../models";
 import User from "../models/user";
 import bookRoutes from "../routes/books/books.routes";
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyInstance,FastifyReply, FastifyRequest } from "fastify";
 import { UserAttributes, UserInstance } from "../types";
-import { EmptyResultError, STRING } from "sequelize";
+import { EmptyResultError, STRING, UnknownConstraintError } from "sequelize";
+import { request } from "http";
 import { stringify } from "querystring";
 const { verify } = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const JWT_SECRET_KEY = process.env.TOKEN_SECRET || "";
+ const JWT_SECRET_KEY = process.env.TOKEN_SECRET || "";
+// const JWT_SECRET_KEY = process.env.TOKEN_SECRET;
 console.log("===============================", JWT_SECRET_KEY);
 
 function getHeaderToken(headers: any) {
@@ -32,7 +34,7 @@ function verifyToken(token: string, JWT_SECRET_KEY: string) {
   });
 }
 
-const userAuthenticate = (fastify: any) => {
+const userAuthenticate = (fastify: FastifyInstance) => {
   fastify.decorateRequest("currentUser", null);
   fastify.addHook(
     "preHandler",
@@ -50,7 +52,12 @@ const userAuthenticate = (fastify: any) => {
             token,
             JWT_SECRET_KEY
           )) as UserAttributes;
-          const user: any = await findUseByEmail(userAttrs);
+          // const user: any = await findUseByEmail(userAttrs);
+          const user = await User.findOne({
+            where: {
+              email: userAttrs.email,
+            }
+          })
           //console.log("userAttrs------------------", userAttrs.Email);
           console.log("User is-----------------------------", user);
           console.log("User token is", token);
@@ -61,6 +68,7 @@ const userAuthenticate = (fastify: any) => {
           if (user && user?.token === token) {
             //console.log("=====>>>>>");
             // request[currentUser] = user;
+            request.currentUser = user;
             reply.header("Authorization", `Bearer ${token}`);
           } else {
             reply.status(400).send({
@@ -78,16 +86,16 @@ const userAuthenticate = (fastify: any) => {
   );
 };
 
-async function findUseByEmail(userAttrs: any) {
-  const user = await User.findOne({
-    where: {
-      email: userAttrs.email,
-    },
-  });
-  if (!user) {
-    throw new EmptyResultError("User not found");
-  }
-  return user;
-}
+// async function findUseByEmail(userAttrs: any) {
+//   const user = await User.findOne({
+//     where: {
+//       email: userAttrs.email,
+//     },
+//   });
+//   if (!user) {
+//     throw new EmptyResultError("User not found");
+//   }
+//   return user;
+// }
 
 module.exports = userAuthenticate;

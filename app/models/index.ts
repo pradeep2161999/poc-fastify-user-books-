@@ -7,6 +7,7 @@ const env = "development";
 const config = require(`${__dirname}/../../db/config.json`)[env];
 
 const db = new Sequelize(process.env[config.use_env_variable] as string, {
+  host: "localhost",
   dialect: "postgres",
 });
 

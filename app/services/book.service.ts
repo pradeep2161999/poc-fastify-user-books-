@@ -15,19 +15,19 @@ async function list1(){
   return Book.findAll();
 }
 async function updateBook(attrs: BookAttributes, id: number) {
-  const data = Book.update(attrs, {
-    where: {
-      id: id,
-    },
-  });
+//   const data = Book.update(attrs, {
+//     where: {
+//       id: id,
+//     },
+//   });
 }
 
 async function removeBook(id: number) {
-  return Book.destroy({
-    where: {
-      id: id,
-    },
-  });
+//   return Book.destroy({
+//     where: {
+//       id: id,
+//     },
+//   });
 }
 
 

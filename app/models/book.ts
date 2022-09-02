@@ -1,7 +1,7 @@
 "use strict";
 import { DataTypes, Sequelize } from "sequelize";
 import User from "./user";
-
+import { BookStatic } from "../types";
 import db from ".";
 const modelOPtions = {
   tableName: "Books",
@@ -29,8 +29,8 @@ const attributes = {
   },
 };
 
-function bookModelFactory(sequelize: Sequelize) {
-  return sequelize.define("Book", attributes, modelOPtions);
+function bookModelFactory(sequelize: Sequelize): BookStatic {
+  return sequelize.define("Book", attributes, modelOPtions) as BookStatic;
 }
 
 const Book = bookModelFactory(db);

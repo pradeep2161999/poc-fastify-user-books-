@@ -1,6 +1,6 @@
 import Book from "../models/book";
 import Users from "../models/user";
-import { UserAttributes } from "../types";
+import { UserAttributes, UserInstance } from "../types";
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 function generateToken(email: string) {

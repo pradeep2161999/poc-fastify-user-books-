@@ -29,7 +29,7 @@ import { bookCreateRouterOpts } from "./books-create.router.opts";
 import { bookDeleteRouterOpts } from "./books-delete.router.opts";
 import { bookListRouterOpts } from "./books-list.router.opts";
 import { bookUpdateRouterOpts } from "./books-update.router.opts";
-const userAuthenticate = require ("../../auth/users-auth")
+const userAuthenticate = require ("../../hooks/users-auth.hooks")
 function bookRoutes(
   fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>,
   opts: { prefix: string },

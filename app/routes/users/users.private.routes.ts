@@ -1,4 +1,4 @@
-import fastify, { FastifyInstance } from "fastify";
+import { FastifyInstance } from "fastify";
 
 import { userCreateRouterOpts } from "./users-create.router.opts";
 import { userDeleteRouterOpts } from "./users-delete.router.opts";
@@ -6,7 +6,13 @@ import { userListRouterOpts } from "./users-list.router.opts";
 import { userUpdateRouterOpts } from "./users-update.router.opts";
 import { create,list, update,erase } from "../../controllers/user.controller";
 import { IncomingMessage, Server, ServerResponse } from "http";
-const userAuthenticate = require("../../auth/users-auth")
+import { UserInstance } from "../../types";
+const userAuthenticate = require("../../hooks/users-auth.hooks")
+declare module 'fastify' {
+  interface FastifyRequest {
+    currentUser: UserInstance;
+  }
+}
 function userprivateRoutes(
     fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>,
     opts: { prefix: string},
