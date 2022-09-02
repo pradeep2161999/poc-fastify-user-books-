@@ -3,6 +3,7 @@ import { DataTypes, Sequelize } from "sequelize";
 import User from "./user";
 import { BookStatic } from "../types";
 import db from ".";
+import Users from "./user";
 const modelOPtions = {
   tableName: "Books",
 };
@@ -19,6 +20,14 @@ const attributes = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  userId:{
+    type: DataTypes.INTEGER,
+    onDelete: "CASCADE",
+    references:{
+      model: "Users",
+      key: "id",
+    },
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
@@ -34,4 +43,8 @@ function bookModelFactory(sequelize: Sequelize): BookStatic {
 }
 
 const Book = bookModelFactory(db);
+Book.belongsTo(Users,{
+  foreignKey: "userId",
+  as: "users",
+});
 export default Book;

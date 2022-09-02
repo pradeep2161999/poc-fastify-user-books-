@@ -1,8 +1,8 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyError, FastifyReply, FastifyRequest } from "fastify";
 import { BookAttributes } from "../types";
 import { UserParams } from "../types/user-controllers"
 import { BookParams } from "../types/book-controllers";
-import { add ,list1, updateBook , removeBook } from "../services/book.service";
+import { add ,listAndPaginate, updateBook , removeBook } from "../services/book.service";
 function create(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as BookAttributes;
   console.log("//////////////////////////////////////////////////",attrs);
@@ -16,17 +16,32 @@ function create(req: FastifyRequest, reply: FastifyReply) {
       reply.status(400).send(err);
     });
   }
+     // return list1()
+    //   .then((book) => {
+    //       // console.log("-----------",book);
+    //     reply.status(200).send(book);
+    //   })
+    //   .catch((err) => {
+    //       // console.log("========",err)
+    //     reply.status(400).send(err);
+    //   });
+    // }
   function list(req: FastifyRequest, reply: FastifyReply) {
-    return list1()
-      .then((book) => {
-          // console.log("-----------",book);
-        reply.status(200).send(book);
+ 
+    const query = req.query;
+    if(/*book.list() */ 1){
+      listAndPaginate(query)
+      .then((landingPages) => {
+        reply.code(200).send(landingPages);
       })
-      .catch((err) => {
-          // console.log("========",err)
-        reply.status(400).send(err);
+      .catch((error: FastifyError) =>{
+        reply.send(error);
       });
+    }else{
+      reply.code(403).send({ errors: ["permission.denied"]});
     }
+  }
+  
   function update(req: FastifyRequest, reply: FastifyReply){
  
     const attrs = req.body as BookAttributes;
@@ -51,4 +66,4 @@ console.log("-------->>>>>>",book);
     reply.status(200).send({msg:["book deleted successfully"]})
   }
 
-export { create, list, update, remove };
+export {create,list, update, remove  };
