@@ -10,12 +10,6 @@ export interface UserAttributes {
   updatedAt: number;
 }
 
-// export interface UserCreateAttributes {
-//   name: string;
-//   email: string;
-//   role: string;
-//   password: string;
-// }
 export interface UserInstance
   extends Model<UserAttributes>,
     UserAttributes {

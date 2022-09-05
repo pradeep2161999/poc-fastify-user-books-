@@ -13,15 +13,6 @@ export default class UserPolicy {
   canList() {
     return this.currentUser.isAdmin();
   }
-
-  // canViewDetail() {
-  //   return this.currentUser.isAdmin();
-  // }
-
-  // canListAll() {
-  //   return this.currentUser.Admin() || this.currentUser.Admin();
-  // }
-
   canUpdate() {
     return this.currentUser.isAdmin();
   }

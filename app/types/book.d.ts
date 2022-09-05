@@ -2,16 +2,12 @@ import { BuildOptions, Model } from "sequelize";
 import { UserInstance } from "./users";
 
 export interface BookAttributes {
+  id: number;
   book_name: string;
   book_author: string;
   description: string;
 
 }
-// export interface BookCreateAttributes {
-//   book_name: string;
-//   book_author: string;
-//   description: string;
-// }
 
 
 export interface BookInstance extends Model<BookAttributes>, BookAttributes {

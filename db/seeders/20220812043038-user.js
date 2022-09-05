@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const { brotliCompressSync } = require('zlib');
 module.exports = {
   async up (queryInterface, Sequelize) {
-        return queryInterface.bulkInsert('Users',[{
+        return queryInterface.bulkInsert('Users',[
+        {
         name: "pradeep",
         email: "pradeep@ymail.com",
         role: "Admin",
@@ -11,7 +12,8 @@ module.exports = {
         mark_as_signin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
-       }])
+       }
+      ])
   },
 
   async down (queryInterface, Sequelize) {

@@ -58,19 +58,19 @@ async function listAndPaginate(query: any) {
   return paginatorResult(result, "books");
 }
 async function updateBook(attrs: BookAttributes, id: number) {
-  //   const data = Book.update(attrs, {
-  //     where: {
-  //       id: id,
-  //     },
-  //   });
+    const data = Book.update(attrs, {
+      where: {
+        id: id
+      },
+    });
 }
 
 async function removeBook(id: number) {
-  //   return Book.destroy({
-  //     where: {
-  //       id: id,
-  //     },
-  //   });
+    return Book.destroy({
+      where: {
+        id: id,
+      },
+    });
 }
 
 export { add, listAndPaginate, updateBook, removeBook };

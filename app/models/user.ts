@@ -57,6 +57,7 @@ Users.prototype.isAgent = function (): boolean {
 };
 
 
+
 // Users.hasMany(Book, {
 //   foreignKey: "userId",
 //   as: "book",

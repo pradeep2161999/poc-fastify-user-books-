@@ -11,7 +11,7 @@ function globalSearchQuery(text: String){
         description: { [Op.iLike]: `%${text}%`},
     });
     searchQueries.push({
-        "$users.name": { [Op.iLike]: `%${text}%`},
+        "$users.name$": { [Op.iLike]: `%${text}%`},
     });
     return {
         [Op.or]: searchQueries,
